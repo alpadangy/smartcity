@@ -29,7 +29,7 @@ public class KulinerPresenter implements KulinerContract.Presenter {
 
     @Override
     public void loadDataKuliner() {
-        kulinerObservable.observableKategori().subscribe(getObserverKuliner());
+        kulinerObservable.observableKuliner().subscribe(getObserverKuliner());
     }
 
     public Observer<ResponseArrayObject> getObserverKuliner(){

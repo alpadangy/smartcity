@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.wahyu.smartcity.data.remote.Network;
 import com.wahyu.smartcity.data.remote.WisataService;
 import com.wahyu.smartcity.model.Kategori;
+import com.wahyu.smartcity.model.Lokasi;
 import com.wahyu.smartcity.model.Wisata;
 import com.wahyu.smartcity.model.response.ResponseArrayObject;
 
@@ -36,16 +37,21 @@ public class WisataPresenter implements WisataContract.Presenter {
     }
 
     @Override
-    public void loadKategori() {
-        wisataObservable.observableKategori().subscribe(getObserverKategori());
-    }
-
-    @Override
     public void loadWisata() {
         wisataObservable.observableWisata().subscribe(getObserverWisata());
     }
 
-    public Observer<ResponseArrayObject> getObserverKategori(){
+    @Override
+    public void loadLokasi() {
+        wisataObservable.observableLokasi().subscribe(getObserverLokasi());
+    }
+
+    @Override
+    public void loadRekomendasi() {
+        wisataObservable.observableRekomendasi().subscribe(getObserverRekomendasi());
+    }
+
+    public Observer<ResponseArrayObject> getObserverLokasi(){
         return new Observer<ResponseArrayObject>() {
             @Override
             public void onSubscribe(Disposable d) {
@@ -54,8 +60,8 @@ public class WisataPresenter implements WisataContract.Presenter {
 
             @Override
             public void onNext(ResponseArrayObject responseArrayObject) {
-                List<Kategori> kategoriList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Kategori>>(){}.getType());
-                view.listKategori(kategoriList);
+                List<Lokasi> lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
+                view.listLokasi(lokasiList);
             }
 
             @Override
@@ -95,9 +101,35 @@ public class WisataPresenter implements WisataContract.Presenter {
         };
     }
 
+    public Observer<ResponseArrayObject> getObserverRekomendasi(){
+        return new Observer<ResponseArrayObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ResponseArrayObject responseArrayObject) {
+                List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
+                view.listRekomendasi(wisataList);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.onFailed();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+
     @Override
     public void start() {
         loadWisata();
-        loadKategori();
+        loadLokasi();
+        loadRekomendasi();
     }
 }

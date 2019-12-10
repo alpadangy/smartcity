@@ -33,7 +33,7 @@ public class KulinerAdapter extends RecyclerView.Adapter<KulinerAdapter.KulinerV
         public KulinerViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNamaToko = itemView.findViewById(R.id.tv_nama_toko);
-            tvNamaLokasi = itemView.findViewById(R.id.tv_lokasi);
+            tvNamaLokasi = itemView.findViewById(R.id.tv_nama_lokasi);
             tvNamaJenis = itemView.findViewById(R.id.tv_jenis);
             tvNamaKuliner = itemView.findViewById(R.id.tv_nama_kuliner);
             tvDeskripsi = itemView.findViewById(R.id.tv_deskripsi);
@@ -46,7 +46,7 @@ public class KulinerAdapter extends RecyclerView.Adapter<KulinerAdapter.KulinerV
     @Override
     public KulinerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.kuliner_item, parent, false);
+                .inflate(R.layout.item_kuliner, parent, false);
         return new KulinerViewHolder(itemView);
     }
 

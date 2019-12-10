@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.wahyu.smartcity.R;
 import com.wahyu.smartcity.base.BaseFragment;
-import com.wahyu.smartcity.model.Kategori;
+import com.wahyu.smartcity.model.Lokasi;
 import com.wahyu.smartcity.model.Wisata;
 import com.wahyu.smartcity.presenter.wisata.WisataContract;
 import com.wahyu.smartcity.presenter.wisata.WisataPresenter;
@@ -22,9 +20,10 @@ import java.util.List;
 
 public class WisataFragment extends BaseFragment implements WisataContract.View{
 
-    private RecyclerView rvWisata, rvKategori;
+    private RecyclerView rvWisata, rvLokasi,rvRekomendasi;
     private WisataAdapter wisataAdapter;
-    private KategoriAdapter kategoriAdapter;
+    private LokasiAdapter lokasiAdapter;
+    private RekomendasiWisataAdapter rekomendasiWisataAdapter;
     private WisataContract.Presenter presenter;
 
     public WisataFragment(){}
@@ -40,7 +39,8 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
     @Override
     public void findViews(View view) {
         rvWisata = view.findViewById(R.id.rv_wisata);
-        rvKategori = view.findViewById(R.id.rv_kategori);
+        rvLokasi = view.findViewById(R.id.rv_lokasi);
+        rvRekomendasi = view.findViewById(R.id.rv_rekomendasi);
     }
 
     @Override
@@ -59,12 +59,21 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
         this.presenter = presenter;
     }
 
+
     @Override
-    public void listKategori(List<Kategori> kategoriList) {
-        kategoriAdapter = new KategoriAdapter(getContext(), kategoriList);
+    public void listLokasi(List<Lokasi> lokasiList) {
+        lokasiAdapter = new LokasiAdapter(getContext(), lokasiList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvKategori.setLayoutManager(layoutManager);
-        rvKategori.setAdapter(kategoriAdapter);
+        rvLokasi.setLayoutManager(layoutManager);
+        rvLokasi.setAdapter(lokasiAdapter);
+    }
+
+    @Override
+    public void listRekomendasi(List<Wisata> wisataList) {
+        rekomendasiWisataAdapter = new RekomendasiWisataAdapter(getContext(), wisataList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvRekomendasi.setLayoutManager(layoutManager);
+        rvRekomendasi.setAdapter(rekomendasiWisataAdapter);
     }
 
     @Override

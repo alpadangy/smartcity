@@ -22,14 +22,21 @@ import io.reactivex.schedulers.Schedulers;
 public class WisataObservable {
     Network network;
 
-    public Observable<ResponseArrayObject> observableKategori(){
+    public Observable<ResponseArrayObject> observableWisata(){
         return network.getService().create(WisataService.class)
-                .listKategori()
+                .listWisata()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<ResponseArrayObject> observableWisata(){
+    public Observable<ResponseArrayObject> observableLokasi(){
+        return network.getService().create(WisataService.class)
+                .listLokasi()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<ResponseArrayObject> observableRekomendasi(){
         return network.getService().create(WisataService.class)
                 .listWisata()
                 .subscribeOn(Schedulers.io())

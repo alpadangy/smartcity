@@ -52,14 +52,13 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_room_24"/>
+                    android:src="@drawable/ic_baseline_room_24_default"/>
 
                 <TextView
                     android:id="@+id/tv_lokasi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bandung"
-                    android:textColor="@color/colorPrimary"
                     android:layout_marginLeft="8sp"
                     android:textSize="14sp" />
 

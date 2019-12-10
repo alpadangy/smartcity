@@ -37,7 +37,7 @@ public class KategoriAdapter extends RecyclerView.Adapter<KategoriAdapter.Katego
     @Override
     public KategoriViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_kategori, parent, false);
+                .inflate(R.layout.item_lokasi, parent, false);
         return new KategoriViewHolder(itemView);
     }
 

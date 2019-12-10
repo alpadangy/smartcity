@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class KulinerObservable {
     private Network network;
-    public Observable<ResponseArrayObject> observableKategori(){
+    public Observable<ResponseArrayObject> observableKuliner(){
         return network.getService().create(KulinerService.class)
                 .listKuliner()
                 .subscribeOn(Schedulers.io())
