@@ -1,4 +1,4 @@
-package com.wahyu.smartcity.view.wisata;
+package com.wahyu.smartcity.view.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;

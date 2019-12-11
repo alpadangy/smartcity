@@ -6,17 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.Gson;
 import com.wahyu.smartcity.R;
 import com.wahyu.smartcity.base.BaseFragment;
-import com.wahyu.smartcity.data.remote.Network;
 import com.wahyu.smartcity.model.Penginapan;
 import com.wahyu.smartcity.presenter.penginapan.PenginapanContract;
-import com.wahyu.smartcity.presenter.penginapan.PenginapanObservable;
 import com.wahyu.smartcity.presenter.penginapan.PenginapanPresenter;
 
 import java.util.List;

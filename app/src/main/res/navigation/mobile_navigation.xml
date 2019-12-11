@@ -7,21 +7,20 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.wahyu.smartcity.view.wisata.WisataFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_wisata">
+        android:name="com.wahyu.smartcity.view.home.HomeFragment"
+        android:label="@string/title_home">
 
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.wahyu.smartcity.view.kuliner.KulinerFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_kuliner" />
+        android:id="@+id/navigation_wisata"
+        android:name="com.wahyu.smartcity.view.wisata.WisataFragment"
+        android:label="@string/title_wisata"
+        tools:layout="@layout/fragment_wisata" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.wahyu.smartcity.view.penginapan.PenginapanFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_penginapan" />
+        android:id="@+id/navigation_kuliner"
+        android:name="com.wahyu.smartcity.view.kuliner.KulinerFragment"
+        android:label="@string/title_kuliner"
+        tools:layout="@layout/fragment_kuliner" />
 </navigation>

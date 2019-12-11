@@ -1,4 +1,4 @@
-package com.wahyu.smartcity.view.wisata;
+package com.wahyu.smartcity.view.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,25 +13,25 @@ import com.wahyu.smartcity.R;
 import com.wahyu.smartcity.base.BaseFragment;
 import com.wahyu.smartcity.model.Lokasi;
 import com.wahyu.smartcity.model.Wisata;
+import com.wahyu.smartcity.presenter.home.HomeContract;
+import com.wahyu.smartcity.presenter.home.HomePresenter;
 import com.wahyu.smartcity.presenter.wisata.WisataContract;
 import com.wahyu.smartcity.presenter.wisata.WisataPresenter;
-import com.wahyu.smartcity.view.home.LokasiAdapter;
-import com.wahyu.smartcity.view.home.RekomendasiWisataAdapter;
-import com.wahyu.smartcity.view.wisata.WisataAdapter;
 
 import java.util.List;
 
-public class WisataFragment extends BaseFragment implements WisataContract.View{
+public class HomeFragment extends BaseFragment implements HomeContract.View{
 
-    private RecyclerView rvWisata, rvLokasi, rvRekomendasi;
-    private WisataAdapter wisataAdapter;
+    private RecyclerView rvLokasi,rvRekomendasi, rvWisata;
     private LokasiAdapter lokasiAdapter;
-    private WisataContract.Presenter presenter;
+    private WisataAdapter wisataAdapter;
+    private RekomendasiWisataAdapter rekomendasiWisataAdapter;
+    private HomeContract.Presenter presenter;
 
-    public WisataFragment(){}
+    public HomeFragment(){}
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wisata, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
         findViews(view);
         initViews(view);
         initListeners(view);
@@ -40,13 +40,14 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
 
     @Override
     public void findViews(View view) {
-        rvWisata = view.findViewById(R.id.rv_wisata);
         rvLokasi = view.findViewById(R.id.rv_lokasi);
+        rvRekomendasi = view.findViewById(R.id.rv_rekomendasi);
+        rvWisata = view.findViewById(R.id.rv_wisata);
     }
 
     @Override
     public void initViews(View view) {
-        new WisataPresenter(this);
+        new HomePresenter(this);
         presenter.start();
     }
 
@@ -56,7 +57,7 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
     }
 
     @Override
-    public void setPresenter(@NonNull WisataContract.Presenter presenter) {
+    public void setPresenter(@NonNull HomeContract.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -69,11 +70,18 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
         rvLokasi.setAdapter(lokasiAdapter);
     }
 
+    @Override
+    public void listRekomendasi(List<Wisata> wisataList) {
+        rekomendasiWisataAdapter = new RekomendasiWisataAdapter(getContext(), wisataList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvRekomendasi.setLayoutManager(layoutManager);
+        rvRekomendasi.setAdapter(rekomendasiWisataAdapter);
+    }
 
     @Override
     public void listWisata(List<Wisata> wisataList) {
         wisataAdapter = new WisataAdapter(getContext(), wisataList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         rvWisata.setLayoutManager(layoutManager);
         rvWisata.setAdapter(wisataAdapter);
     }

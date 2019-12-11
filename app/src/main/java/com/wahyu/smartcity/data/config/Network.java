@@ -1,9 +1,9 @@
-package com.wahyu.smartcity.data.remote;
+package com.wahyu.smartcity.data.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.wahyu.smartcity.data.utils.JSONArrayAdapter;
-import com.wahyu.smartcity.data.utils.JSONObjectAdapter;
+import com.wahyu.smartcity.data.config.JSONArrayAdapter;
+import com.wahyu.smartcity.data.config.JSONObjectAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

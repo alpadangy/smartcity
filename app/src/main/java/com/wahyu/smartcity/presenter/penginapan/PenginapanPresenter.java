@@ -2,8 +2,7 @@ package com.wahyu.smartcity.presenter.penginapan;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.wahyu.smartcity.data.remote.Network;
-import com.wahyu.smartcity.model.Kategori;
+import com.wahyu.smartcity.data.config.Network;
 import com.wahyu.smartcity.model.Penginapan;
 import com.wahyu.smartcity.model.response.ResponseArrayObject;
 

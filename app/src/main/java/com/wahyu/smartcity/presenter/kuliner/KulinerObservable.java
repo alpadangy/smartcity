@@ -1,7 +1,7 @@
 package com.wahyu.smartcity.presenter.kuliner;
 
 import com.wahyu.smartcity.data.remote.KulinerService;
-import com.wahyu.smartcity.data.remote.Network;
+import com.wahyu.smartcity.data.config.Network;
 import com.wahyu.smartcity.model.response.ResponseArrayObject;
 
 import io.reactivex.Observable;

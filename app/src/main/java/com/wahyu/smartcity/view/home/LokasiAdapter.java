@@ -1,4 +1,4 @@
-package com.wahyu.smartcity.view.wisata;
+package com.wahyu.smartcity.view.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wahyu.smartcity.R;
 import com.wahyu.smartcity.model.Lokasi;
-import com.wahyu.smartcity.model.Wisata;
 
 import java.util.List;
 

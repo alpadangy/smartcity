@@ -1,8 +1,7 @@
 package com.wahyu.smartcity.presenter.penginapan;
 
-import com.wahyu.smartcity.data.remote.Network;
+import com.wahyu.smartcity.data.config.Network;
 import com.wahyu.smartcity.data.remote.PenginapanService;
-import com.wahyu.smartcity.data.remote.WisataService;
 import com.wahyu.smartcity.model.response.ResponseArrayObject;
 
 import io.reactivex.Observable;

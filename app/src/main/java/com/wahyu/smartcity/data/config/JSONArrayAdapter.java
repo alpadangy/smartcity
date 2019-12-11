@@ -1,4 +1,4 @@
-package com.wahyu.smartcity.data.utils;
+package com.wahyu.smartcity.data.config;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;

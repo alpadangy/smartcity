@@ -1,4 +1,4 @@
-package com.wahyu.smartcity.presenter.wisata;
+package com.wahyu.smartcity.presenter.home;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -13,30 +13,34 @@ import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
 /**
- * Created by Ujang Wahyu on 12/10/2019.
+ * Created by Ujang Wahyu on 12/11/2019.
  * PT Indocyber Global Teknologi
  * ujang.wahyu@indocyber.co.id
  */
-public class WisataPresenter implements WisataContract.Presenter {
-
-    private WisataObservable wisataObservable = new WisataObservable();
-    private WisataContract.View view;
+public class HomePresenter implements HomeContract.Presenter {
+    private HomeObservable homeObservable = new HomeObservable();
+    private HomeContract.View view;
     private Network network;
     private Gson gson = new Gson();
 
-    public WisataPresenter(WisataContract.View view) {
+    public HomePresenter(HomeContract.View view) {
         this.view = view;
         this.view.setPresenter(this);
     }
 
     @Override
-    public void loadWisata() {
-        wisataObservable.observableWisata().subscribe(getObserverWisata());
+    public void loadLokasi() {
+        homeObservable.observableLokasi().subscribe(getObserverLokasi());
     }
 
     @Override
-    public void loadLokasi() {
-        wisataObservable.observableLokasi().subscribe(getObserverLokasi());
+    public void loadRekomendasi() {
+        homeObservable.observableRekomendasi().subscribe(getObserverRekomendasi());
+    }
+
+    @Override
+    public void loadWisata() {
+        homeObservable.observableWisata().subscribe(getObserverWisata());
     }
 
     public Observer<ResponseArrayObject> getObserverLokasi(){
@@ -50,6 +54,31 @@ public class WisataPresenter implements WisataContract.Presenter {
             public void onNext(ResponseArrayObject responseArrayObject) {
                 List<Lokasi> lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
                 view.listLokasi(lokasiList);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.onFailed();
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+    }
+
+    public Observer<ResponseArrayObject> getObserverRekomendasi(){
+        return new Observer<ResponseArrayObject>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ResponseArrayObject responseArrayObject) {
+                List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
+                view.listRekomendasi(wisataList);
             }
 
             @Override
@@ -91,7 +120,8 @@ public class WisataPresenter implements WisataContract.Presenter {
 
     @Override
     public void start() {
-        loadWisata();
         loadLokasi();
+        loadRekomendasi();
+        loadWisata();
     }
 }
