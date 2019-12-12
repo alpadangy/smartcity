@@ -51,9 +51,9 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.WisataView
                 @Override
                 public void onClick(View v) {
                     Log.d(TAG, "List ke " + getPosition() + " di klik.");
-                    Toast.makeText(mContext, "Click List ke " + getPosition(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(v.getContext(), DetailWisataActivity.class);
-                    intent.putExtra("id_course", wisataList.get(getPosition()).getId());
+                    intent.putExtra("id_wisata", wisataList.get(getPosition()).getId());
+                    intent.putExtra("nama_wisata", wisataList.get(getPosition()).getNamaTempat());
                        v.getContext().startActivity(intent);
                 }
             });

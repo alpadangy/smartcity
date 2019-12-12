@@ -3,6 +3,7 @@ package com.wahyu.smartcity.presenter.wisata;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wahyu.smartcity.data.config.Network;
+import com.wahyu.smartcity.data.remote.WisataService;
 import com.wahyu.smartcity.model.Lokasi;
 import com.wahyu.smartcity.model.Wisata;
 import com.wahyu.smartcity.model.response.ResponseArrayObject;
@@ -10,7 +11,13 @@ import com.wahyu.smartcity.model.response.ResponseArrayObject;
 import java.util.List;
 
 import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.Response;
 
 /**
  * Created by Ujang Wahyu on 12/10/2019.
@@ -18,10 +25,12 @@ import io.reactivex.disposables.Disposable;
  * ujang.wahyu@indocyber.co.id
  */
 public class WisataPresenter implements WisataContract.Presenter {
-
-    private WisataObservable wisataObservable = new WisataObservable();
+    private CompositeDisposable disposable = new CompositeDisposable();
     private WisataContract.View view;
+    private WisataService wisataService;
     private Network network;
+    List<Wisata> wisataList;
+    List<Lokasi> lokasiList;
     private Gson gson = new Gson();
 
     public WisataPresenter(WisataContract.View view) {
@@ -31,66 +40,67 @@ public class WisataPresenter implements WisataContract.Presenter {
 
     @Override
     public void loadWisata() {
-        wisataObservable.observableWisata().subscribe(getObserverWisata());
+        wisataService.listWisata()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseArrayObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseArrayObject responseArrayObject) {
+                        wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
+                        view.listWisata(wisataList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Updates UI with data
+
+                    }
+                });
     }
 
     @Override
     public void loadLokasi() {
-        wisataObservable.observableLokasi().subscribe(getObserverLokasi());
-    }
+        wisataService.listLokasi()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseArrayObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
-    public Observer<ResponseArrayObject> getObserverLokasi(){
-        return new Observer<ResponseArrayObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
+                    }
 
-            }
+                    @Override
+                    public void onNext(ResponseArrayObject responseArrayObject) {
+                        lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
+                        view.listLokasi(lokasiList);
+                    }
 
-            @Override
-            public void onNext(ResponseArrayObject responseArrayObject) {
-                List<Lokasi> lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
-                view.listLokasi(lokasiList);
-            }
+                    @Override
+                    public void onError(Throwable e) {
 
-            @Override
-            public void onError(Throwable e) {
-                view.onFailed();
-            }
+                    }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onComplete() {
+                        // Updates UI with data
 
-            }
-        };
-    }
-
-    public Observer<ResponseArrayObject> getObserverWisata(){
-        return new Observer<ResponseArrayObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(ResponseArrayObject responseArrayObject) {
-                List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
-                view.listWisata(wisataList);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                view.onFailed();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
+                    }
+                });
     }
 
     @Override
     public void start() {
+        wisataService = network.getService().create(WisataService.class);
         loadWisata();
         loadLokasi();
     }

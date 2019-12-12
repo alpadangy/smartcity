@@ -26,6 +26,5 @@ public class PenginapanContract {
 
     public interface Presenter extends BasePresenter {
         void loadDataPenginapan();
-        Observer<ResponseArrayObject> observerPenginapan();
     }
 }

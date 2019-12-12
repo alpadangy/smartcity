@@ -1,5 +1,7 @@
 package com.wahyu.smartcity.presenter.detailwisata;
 
+import android.os.Bundle;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wahyu.smartcity.data.config.Network;
@@ -25,52 +27,54 @@ public class DetailWisataPresenter implements DetailWisataContract.Presenter {
     private DetailWisataContract.View view;
     private Network network;
     private Gson gson = new Gson();
-    private int id;
+    private int wisata_id;
+    private String nama_wisata;
+    private Bundle bundle;
+    private WisataService wisataService;
 
-    public DetailWisataPresenter(DetailWisataContract.View view) {
+    public DetailWisataPresenter(DetailWisataContract.View view, Bundle bundle) {
+        this.bundle = bundle;
         this.view = view;
         this.view.setPresenter(this);
     }
 
     @Override
     public void loadDetailWisata(int id) {
-        observableDetailWisata().subscribe(getObserverDetailWisata());
-    }
-
-    public Observable<ResponseObject> observableDetailWisata(){
-        return network.getService().create(WisataService.class)
-                .detailWisata(id)
+        wisataService.detailWisata(id)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseObject responseObject) {
+                        Wisata wisata = gson.fromJson(responseObject.getData().toString(), new TypeToken<Wisata>(){}.getType());
+                        view.detailWisata(wisata);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Updates UI with data
+
+                    }
+                });
     }
 
-    public Observer<ResponseObject> getObserverDetailWisata(){
-        return new Observer<ResponseObject>() {
-            @Override
-            public void onSubscribe(Disposable d) {
 
-            }
-
-            @Override
-            public void onNext(ResponseObject responseObject) {
-                Wisata wisata = gson.fromJson(responseObject.getData().toString(), new TypeToken<Wisata>(){}.getType());
-                view.detailWisata(wisata);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                view.onFailed();
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
-    }
 
     @Override
     public void start() {
-        loadDetailWisata(id);
+        wisataService = network.getService().create(WisataService.class);
+        wisata_id = Integer.parseInt(bundle.get("id_wisata").toString());
+        nama_wisata = bundle.get("nama_wisata").toString();
+        loadDetailWisata(wisata_id);
     }
 }
