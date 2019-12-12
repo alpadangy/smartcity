@@ -35,122 +35,136 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void loadLokasi() {
-        homeService.listLokasi()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseArrayObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try{
+            homeService.listLokasi()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseArrayObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(ResponseArrayObject responseArrayObject) {
-                        List<Lokasi> lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
-                        view.listLokasi(lokasiList);
-                    }
+                        @Override
+                        public void onNext(ResponseArrayObject responseArrayObject) {
+                            List<Lokasi> lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
+                            view.listLokasi(lokasiList);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
+                            view.onFailed();
+                        }
 
-                    }
+                        @Override
+                        public void onComplete() {
+                            view.stopProgress();
+                            view.onSuccess();
+                        }
+                    });
+        }catch (Exception e){
 
-                    @Override
-                    public void onComplete() {
-                        // Updates UI with data
-
-                    }
-                });
+        }
     }
 
     @Override
     public void loadRekomendasi() {
-        homeService.listRekomendasi()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseArrayObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try{
+            homeService.listRekomendasi()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseArrayObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(ResponseArrayObject responseArrayObject) {
-                        List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
-                        view.listRekomendasi(wisataList);
-                    }
+                        @Override
+                        public void onNext(ResponseArrayObject responseArrayObject) {
+                            List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
+                            view.listRekomendasi(wisataList);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
+                            view.onFailure();
+                        }
 
-                    }
+                        @Override
+                        public void onComplete() {
+                            view.stopProgress();
 
-                    @Override
-                    public void onComplete() {
-                        // Updates UI with data
+                        }
+                    });
+        }catch (Exception e){
 
-                    }
-                });
+        }
     }
 
     @Override
     public void loadWisata() {
-        homeService.listWisata()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseArrayObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try {
+            homeService.listWisata()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseArrayObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(ResponseArrayObject responseArrayObject) {
-                        List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
-                        view.listWisata(wisataList);
-                    }
+                        @Override
+                        public void onNext(ResponseArrayObject responseArrayObject) {
+                            List<Wisata> wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
+                            view.listWisata(wisataList);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        // Updates UI with data
+                        @Override
+                        public void onComplete() {
+                            view.stopProgress();
+                        }
+                    });
+        }catch (Exception e){
 
-                    }
-                });
+        }
     }
 
     @Override
     public void loadTempatKuliner() {
-        homeService.listTempatKuliner()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseArrayObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try {
+            homeService.listTempatKuliner()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseArrayObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(ResponseArrayObject responseArrayObject) {
-                        List<Tempatkuliner> tempatkulinerList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Tempatkuliner>>(){}.getType());
-                        view.listTempatKuliner(tempatkulinerList);
-                    }
+                        @Override
+                        public void onNext(ResponseArrayObject responseArrayObject) {
+                            List<Tempatkuliner> tempatkulinerList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Tempatkuliner>>(){}.getType());
+                            view.listTempatKuliner(tempatkulinerList);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        // Updates UI with data
+                        @Override
+                        public void onComplete() {
+                            view.stopProgress();
+                        }
+                    });
+        }catch (Exception e){
 
-                    }
-                });
+        }
     }
 
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,12 +22,15 @@ import com.wahyu.smartcity.view.wisata.WisataAdapter;
 
 import java.util.List;
 
+import io.supercharge.shimmerlayout.ShimmerLayout;
+
 public class WisataFragment extends BaseFragment implements WisataContract.View{
 
     private RecyclerView rvWisata, rvLokasi, rvRekomendasi;
     private WisataAdapter wisataAdapter;
     private LokasiAdapter lokasiAdapter;
     private WisataContract.Presenter presenter;
+    private ShimmerLayout shimmerLayout;
 
     public WisataFragment(){}
 
@@ -42,12 +46,12 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
     public void findViews(View view) {
         rvWisata = view.findViewById(R.id.rv_wisata);
         rvLokasi = view.findViewById(R.id.rv_lokasi);
+        shimmerLayout = view.findViewById(R.id.shimmer_layout);
     }
 
     @Override
     public void initViews(View view) {
         new WisataPresenter(this);
-        presenter.start();
     }
 
     @Override
@@ -80,12 +84,23 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
 
     @Override
     public void onSuccess() {
-        //Toast
+      //  Toast.makeText(getContext(), "Berhasil mengambil data", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProgress() {
+        shimmerLayout.startShimmerAnimation();
+    }
+
+    @Override
+    public void stopProgress() {
+        shimmerLayout.stopShimmerAnimation();
+        shimmerLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void onFailure() {
-        //Toast
+     //   Toast.makeText(getContext(), "No Internet Access", Toast.LENGTH_SHORT).show();
     }
 
     @Override

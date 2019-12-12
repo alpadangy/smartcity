@@ -15,7 +15,7 @@
     <color name="grayDark">#3e3e3e</color>
     <color name="gray">#999999</color>
     <color name="danger">#ed4630</color>
-
+    <color name="shimmer_background_color">#b1b1b1</color>
     <color name="colorNavIcon">#dae9f6</color>
     <color name="colorNavText">#01294b</color>
     <color name="colorFacebook">#3b5998</color>

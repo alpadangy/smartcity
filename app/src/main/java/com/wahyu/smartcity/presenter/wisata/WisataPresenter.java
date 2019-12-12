@@ -40,62 +40,70 @@ public class WisataPresenter implements WisataContract.Presenter {
 
     @Override
     public void loadWisata() {
-        wisataService.listWisata()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseArrayObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try {
+            wisataService.listWisata()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseArrayObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(ResponseArrayObject responseArrayObject) {
-                        wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
-                        view.listWisata(wisataList);
-                    }
+                        @Override
+                        public void onNext(ResponseArrayObject responseArrayObject) {
+                            wisataList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Wisata>>(){}.getType());
+                            view.listWisata(wisataList);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onComplete() {
-                        // Updates UI with data
+                        @Override
+                        public void onComplete() {
+                            view.stopProgress();
+                        }
+                    });
+        }catch (Exception e){
 
-                    }
-                });
+        }
     }
 
     @Override
     public void loadLokasi() {
-        wisataService.listLokasi()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResponseArrayObject>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        try {
+            wisataService.listLokasi()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<ResponseArrayObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(ResponseArrayObject responseArrayObject) {
-                        lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
-                        view.listLokasi(lokasiList);
-                    }
+                        @Override
+                        public void onNext(ResponseArrayObject responseArrayObject) {
+                            lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
+                            view.listLokasi(lokasiList);
+                        }
 
-                    @Override
-                    public void onError(Throwable e) {
+                        @Override
+                        public void onError(Throwable e) {
+                            view.onFailure();
+                        }
 
-                    }
+                        @Override
+                        public void onComplete() {
+                            view.stopProgress();
+                            view.onSuccess();
 
-                    @Override
-                    public void onComplete() {
-                        // Updates UI with data
+                        }
+                    });
+        }catch (Exception e){
 
-                    }
-                });
+        }
     }
 
     @Override

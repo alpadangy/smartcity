@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.wahyu.smartcity.R;
-import com.wahyu.smartcity.model.Kuliner;
 import com.wahyu.smartcity.model.Tempatkuliner;
 
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
  * PT Indocyber Global Teknologi
  * ujang.wahyu@indocyber.co.id
  */
-public class KulinerAdapter extends RecyclerView.Adapter<KulinerAdapter.KulinerViewHolder> {
+public class TempatKulinerAdapter extends RecyclerView.Adapter<TempatKulinerAdapter.KulinerViewHolder> {
     private Context mContext;
     private List<Tempatkuliner> tempatkulinerList;
 
@@ -49,7 +48,7 @@ public class KulinerAdapter extends RecyclerView.Adapter<KulinerAdapter.KulinerV
         return new KulinerViewHolder(itemView);
     }
 
-    public KulinerAdapter(Context mContext, List<Tempatkuliner> tempatkuliners) {
+    public TempatKulinerAdapter(Context mContext, List<Tempatkuliner> tempatkuliners) {
         this.mContext = mContext;
         this.tempatkulinerList = tempatkuliners;
     }

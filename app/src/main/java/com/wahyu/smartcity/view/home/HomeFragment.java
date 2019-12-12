@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wahyu.smartcity.R;
 import com.wahyu.smartcity.base.BaseFragment;
+import com.wahyu.smartcity.model.Kuliner;
 import com.wahyu.smartcity.model.Lokasi;
+import com.wahyu.smartcity.model.Tempatkuliner;
 import com.wahyu.smartcity.model.Wisata;
 import com.wahyu.smartcity.presenter.home.HomeContract;
 import com.wahyu.smartcity.presenter.home.HomePresenter;
@@ -20,13 +23,17 @@ import com.wahyu.smartcity.presenter.wisata.WisataPresenter;
 
 import java.util.List;
 
+import io.supercharge.shimmerlayout.ShimmerLayout;
+
 public class HomeFragment extends BaseFragment implements HomeContract.View{
 
-    private RecyclerView rvLokasi,rvRekomendasi, rvWisata;
+    private RecyclerView rvLokasi,rvRekomendasi, rvWisata, rvTempatKuliner;
     private LokasiAdapter lokasiAdapter;
     private WisataAdapter wisataAdapter;
+    private TempatKulinerAdapter tempatKulinerAdapter;
     private RekomendasiWisataAdapter rekomendasiWisataAdapter;
     private HomeContract.Presenter presenter;
+    private ShimmerLayout shimmerLayout;
 
     public HomeFragment(){}
 
@@ -43,12 +50,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
         rvLokasi = view.findViewById(R.id.rv_lokasi);
         rvRekomendasi = view.findViewById(R.id.rv_rekomendasi);
         rvWisata = view.findViewById(R.id.rv_wisata);
+        rvTempatKuliner = view.findViewById(R.id.rv_tempat_kuliner);
+        shimmerLayout = view.findViewById(R.id.shimmer_layout);
     }
 
     @Override
     public void initViews(View view) {
         new HomePresenter(this);
-        presenter.start();
     }
 
     @Override
@@ -87,13 +95,33 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
     }
 
     @Override
+    public void listTempatKuliner(List<Tempatkuliner> tempatkulinerList) {
+        tempatKulinerAdapter = new TempatKulinerAdapter(getContext(), tempatkulinerList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        rvTempatKuliner.setLayoutManager(layoutManager);
+        rvTempatKuliner.setAdapter(tempatKulinerAdapter);
+    }
+
+
+    @Override
     public void onSuccess() {
-        //Toast
+    //    Toast.makeText(getContext(), "Berhasil Mengambil Data", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProgress() {
+
+    }
+
+    @Override
+    public void stopProgress() {
+        shimmerLayout.stopShimmerAnimation();
+        shimmerLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void onFailure() {
-        //Toast
+    //    Toast.makeText(getContext(), "No Internet Access", Toast.LENGTH_SHORT).show();
     }
 
     @Override

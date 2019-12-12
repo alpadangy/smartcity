@@ -18,6 +18,8 @@ public class WisataContract {
         void listWisata(List<Wisata> wisataList);
         void listLokasi(List<Lokasi> lokasiList);
         void onSuccess();
+        void onProgress();
+        void stopProgress();
         void onFailure();
         void onFailed();
     }

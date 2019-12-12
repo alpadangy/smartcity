@@ -40,7 +40,6 @@ public class KulinerFragment extends BaseFragment implements KulinerContract.Vie
     @Override
     public void initViews(View view) {
         new KulinerPresenter(this);
-        presenter.start();
     }
 
     @Override

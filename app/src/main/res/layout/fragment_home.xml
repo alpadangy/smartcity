@@ -7,66 +7,107 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.wisata.WisataFragment" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <include
+            android:id="@+id/layout_kategori"
             layout="@layout/home_kategori" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rekomendasi Liburan"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="16dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="16dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_rekomendasi"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="205dp"
-            android:orientation="horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Semua Wisata"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="16dp"/>
+            android:layout_below="@+id/layout_kategori"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_lokasi"
+            <include
+                layout="@layout/shimmer_home" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_rekomendasi"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_kategori"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekomendasi Liburan"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rekomendasi"
+                android:layout_width="match_parent"
+                android:layout_height="205dp"
+                android:orientation="horizontal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/view_lokasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_rekomendasi"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semua Wisata"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_lokasi"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"/>
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_wisata"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
+            android:layout_below="@+id/view_lokasi"
             android:orientation="horizontal"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rekomendasi Kuliner"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="16dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_tempat_kuliner"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_wisata"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekomendasi Kuliner"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_tempat_kuliner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

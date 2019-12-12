@@ -21,6 +21,8 @@ public class HomeContract {
         void listWisata(List<Wisata> wisataList);
         void listTempatKuliner(List<Tempatkuliner> tempatkulinerList);
         void onSuccess();
+        void onProgress();
+        void stopProgress();
         void onFailure();
         void onFailed();
     }
