@@ -90,8 +90,8 @@ public class DetailWisataActivity extends BaseActivity implements DetailWisataCo
 
         tvLokasi.setText(lokasi);
         tvAlamatLengkap.setText(alamatLengkap);
-        tvWaktuBuka.setText("Waktu Buka : " + waktuBuka);
-        tvWaktuTutup.setText("Waktu Tutup : " + waktuTutup);
+        tvWaktuBuka.setText("Buka : " + waktuBuka);
+        tvWaktuTutup.setText("Tutup : " + waktuTutup);
         tvWebsite.setText(website);
         tvNoTelp.setText(noTelp);
         tvDeskripsi.setText(deskripsi);

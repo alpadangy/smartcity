@@ -2,7 +2,9 @@ package com.wahyu.smartcity.presenter.home;
 
 import com.wahyu.smartcity.base.BasePresenter;
 import com.wahyu.smartcity.base.BaseView;
+import com.wahyu.smartcity.model.Kuliner;
 import com.wahyu.smartcity.model.Lokasi;
+import com.wahyu.smartcity.model.Tempatkuliner;
 import com.wahyu.smartcity.model.Wisata;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class HomeContract {
         void listLokasi(List<Lokasi> lokasiList);
         void listRekomendasi(List<Wisata> wisataList);
         void listWisata(List<Wisata> wisataList);
+        void listTempatKuliner(List<Tempatkuliner> tempatkulinerList);
         void onSuccess();
         void onFailure();
         void onFailed();
@@ -26,5 +29,6 @@ public class HomeContract {
         void loadLokasi();
         void loadRekomendasi();
         void loadWisata();
+        void loadTempatKuliner();
     }
 }

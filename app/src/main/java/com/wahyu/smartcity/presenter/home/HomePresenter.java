@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wahyu.smartcity.data.config.Network;
 import com.wahyu.smartcity.data.remote.HomeService;
+import com.wahyu.smartcity.model.Kuliner;
 import com.wahyu.smartcity.model.Lokasi;
+import com.wahyu.smartcity.model.Tempatkuliner;
 import com.wahyu.smartcity.model.Wisata;
 import com.wahyu.smartcity.model.response.ResponseArrayObject;
 
@@ -121,6 +123,36 @@ public class HomePresenter implements HomeContract.Presenter {
                 });
     }
 
+    @Override
+    public void loadTempatKuliner() {
+        homeService.listTempatKuliner()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<ResponseArrayObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseArrayObject responseArrayObject) {
+                        List<Tempatkuliner> tempatkulinerList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Tempatkuliner>>(){}.getType());
+                        view.listTempatKuliner(tempatkulinerList);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // Updates UI with data
+
+                    }
+                });
+    }
+
 
     @Override
     public void start() {
@@ -128,5 +160,6 @@ public class HomePresenter implements HomeContract.Presenter {
         loadLokasi();
         loadRekomendasi();
         loadWisata();
+        loadTempatKuliner();
     }
 }

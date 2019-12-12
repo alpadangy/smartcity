@@ -27,4 +27,7 @@ public interface HomeService {
 
     @GET("lokasi")
     Observable<ResponseArrayObject> listLokasi();
+
+    @GET("tempatkuliner")
+    Observable<ResponseArrayObject> listTempatKuliner();
 }
