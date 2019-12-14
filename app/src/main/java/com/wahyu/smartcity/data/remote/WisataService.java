@@ -29,6 +29,9 @@ public interface WisataService {
     @GET("wisata/{id}")
     Observable<ResponseObject> detailWisata(@Path("id") int id);
 
+    @GET("lokasi/{id}/wisata")
+    Observable<ResponseArrayObject> wisataByLokasi(@Path("id") int id);
+
     @GET("lokasi")
     Observable<ResponseArrayObject> listLokasi();
 

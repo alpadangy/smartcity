@@ -121,7 +121,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
 
     @Override
     public void onFailure() {
-    //    Toast.makeText(getContext(), "No Internet Access", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "No Internet Access", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -131,6 +131,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View{
 
     @Override
     public void onResume() {
+        shimmerLayout.startShimmerAnimation();
         presenter.start();
         super.onResume();
     }

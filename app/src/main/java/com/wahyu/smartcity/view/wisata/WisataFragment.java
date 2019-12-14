@@ -16,7 +16,7 @@ import com.wahyu.smartcity.model.Lokasi;
 import com.wahyu.smartcity.model.Wisata;
 import com.wahyu.smartcity.presenter.wisata.WisataContract;
 import com.wahyu.smartcity.presenter.wisata.WisataPresenter;
-import com.wahyu.smartcity.view.home.LokasiAdapter;
+import com.wahyu.smartcity.view.wisata.LokasiAdapter;
 import com.wahyu.smartcity.view.home.RekomendasiWisataAdapter;
 import com.wahyu.smartcity.view.wisata.WisataAdapter;
 
@@ -26,11 +26,11 @@ import io.supercharge.shimmerlayout.ShimmerLayout;
 
 public class WisataFragment extends BaseFragment implements WisataContract.View{
 
-    private RecyclerView rvWisata, rvLokasi, rvRekomendasi;
+    private RecyclerView rvWisata;
     private WisataAdapter wisataAdapter;
-    private LokasiAdapter lokasiAdapter;
     private WisataContract.Presenter presenter;
     private ShimmerLayout shimmerLayout;
+    private Bundle inBundle;
 
     public WisataFragment(){}
 
@@ -45,13 +45,13 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
     @Override
     public void findViews(View view) {
         rvWisata = view.findViewById(R.id.rv_wisata);
-        rvLokasi = view.findViewById(R.id.rv_lokasi);
         shimmerLayout = view.findViewById(R.id.shimmer_layout);
     }
 
     @Override
     public void initViews(View view) {
-        new WisataPresenter(this);
+        inBundle = getActivity().getIntent().getExtras();
+        new WisataPresenter(this, inBundle);
     }
 
     @Override
@@ -63,16 +63,6 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
     public void setPresenter(@NonNull WisataContract.Presenter presenter) {
         this.presenter = presenter;
     }
-
-
-    @Override
-    public void listLokasi(List<Lokasi> lokasiList) {
-        lokasiAdapter = new LokasiAdapter(getContext(), lokasiList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rvLokasi.setLayoutManager(layoutManager);
-        rvLokasi.setAdapter(lokasiAdapter);
-    }
-
 
     @Override
     public void listWisata(List<Wisata> wisataList) {
@@ -100,7 +90,7 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
 
     @Override
     public void onFailure() {
-     //   Toast.makeText(getContext(), "No Internet Access", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "No Internet Access", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -110,6 +100,7 @@ public class WisataFragment extends BaseFragment implements WisataContract.View{
 
     @Override
     public void onResume() {
+        shimmerLayout.startShimmerAnimation();
         presenter.start();
         super.onResume();
     }

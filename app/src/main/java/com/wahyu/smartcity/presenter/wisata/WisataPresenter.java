@@ -1,5 +1,7 @@
 package com.wahyu.smartcity.presenter.wisata;
 
+import android.os.Bundle;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wahyu.smartcity.data.config.Network;
@@ -29,11 +31,14 @@ public class WisataPresenter implements WisataContract.Presenter {
     private WisataContract.View view;
     private WisataService wisataService;
     private Network network;
-    List<Wisata> wisataList;
-    List<Lokasi> lokasiList;
+    private List<Wisata> wisataList;
+    private List<Lokasi> lokasiList;
+    private Bundle bundle;
+
     private Gson gson = new Gson();
 
-    public WisataPresenter(WisataContract.View view) {
+    public WisataPresenter(WisataContract.View view, Bundle bundle) {
+        this.bundle = bundle;
         this.view = view;
         this.view.setPresenter(this);
     }
@@ -72,44 +77,8 @@ public class WisataPresenter implements WisataContract.Presenter {
     }
 
     @Override
-    public void loadLokasi() {
-        try {
-            wisataService.listLokasi()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<ResponseArrayObject>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(ResponseArrayObject responseArrayObject) {
-                            lokasiList = gson.fromJson(responseArrayObject.getData().toString(), new TypeToken<List<Lokasi>>(){}.getType());
-                            view.listLokasi(lokasiList);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            view.onFailure();
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            view.stopProgress();
-                            view.onSuccess();
-
-                        }
-                    });
-        }catch (Exception e){
-
-        }
-    }
-
-    @Override
     public void start() {
         wisataService = network.getService().create(WisataService.class);
         loadWisata();
-        loadLokasi();
     }
 }

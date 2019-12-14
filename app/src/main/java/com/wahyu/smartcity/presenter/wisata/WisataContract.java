@@ -16,7 +16,6 @@ import java.util.List;
 public class WisataContract {
     public interface View extends BaseView<Presenter> {
         void listWisata(List<Wisata> wisataList);
-        void listLokasi(List<Lokasi> lokasiList);
         void onSuccess();
         void onProgress();
         void stopProgress();
@@ -26,6 +25,5 @@ public class WisataContract {
 
     public interface Presenter extends BasePresenter {
         void loadWisata();
-        void loadLokasi();
     }
 }

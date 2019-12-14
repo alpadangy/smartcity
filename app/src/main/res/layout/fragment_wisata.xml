@@ -20,17 +20,9 @@
                 layout="@layout/shimmer_wisata"/>
 
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_lokasi"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"/>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_wisata"
             android:layout_width="match_parent"
-            android:layout_below="@+id/rv_lokasi"
             android:layout_height="match_parent"/>
 
     </RelativeLayout>
